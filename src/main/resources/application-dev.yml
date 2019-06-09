@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     username: root
-    password: password
+    password: Bxreading@888
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/chengfeng1_5?characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8&useUnicode=true&allowPublicKeyRetrieval=true
     type: com.alibaba.druid.pool.DruidDataSource
@@ -30,7 +30,7 @@ spring:
 #      config: classpath:/ehcache.xml
   redis:
     database: 1
-    host: 47.95.244.237
+    host: 127.0.0.1
     port: 6379
     password:
     lettuce:
