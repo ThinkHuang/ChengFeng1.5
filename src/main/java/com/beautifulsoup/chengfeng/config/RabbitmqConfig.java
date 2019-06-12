@@ -1,28 +1,42 @@
 package com.beautifulsoup.chengfeng.config;
 
 
-import com.beautifulsoup.chengfeng.constant.ChengfengConstant;
-import com.beautifulsoup.chengfeng.prop.RabbitmqProperties;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.*;
+import static com.beautifulsoup.chengfeng.constant.ChengfengConstant.RabbitMQ.EVALUATION_EXCHANGE;
+import static com.beautifulsoup.chengfeng.constant.ChengfengConstant.RabbitMQ.ORDER_EXCHANGE;
+import static com.beautifulsoup.chengfeng.constant.ChengfengConstant.RabbitMQ.QUEUE_NAME_ELASTICSEARCH;
+import static com.beautifulsoup.chengfeng.constant.ChengfengConstant.RabbitMQ.QUEUE_NAME_EVALUATION;
+import static com.beautifulsoup.chengfeng.constant.ChengfengConstant.RabbitMQ.QUEUE_NAME_MONGODB;
+import static com.beautifulsoup.chengfeng.constant.ChengfengConstant.RabbitMQ.QUEUE_NAME_ORDER;
+import static com.beautifulsoup.chengfeng.constant.ChengfengConstant.RabbitMQ.QUEUE_NAME_SPELL_ORDER;
+import static com.beautifulsoup.chengfeng.constant.ChengfengConstant.RabbitMQ.QUEUE_NAME_STOCK;
+import static com.beautifulsoup.chengfeng.constant.ChengfengConstant.RabbitMQ.QUEUE_NAME_UPDATE_ORDER;
+import static com.beautifulsoup.chengfeng.constant.ChengfengConstant.RabbitMQ.SPELL_ORDER_DELAY_EXCHANGE;
+import static com.beautifulsoup.chengfeng.constant.ChengfengConstant.RabbitMQ.TOPIC_EXCHANGE;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.amqp.core.AcknowledgeMode;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.CustomExchange;
+import org.springframework.amqp.core.FanoutExchange;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.RabbitListenerContainerFactory;
-import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.beautifulsoup.chengfeng.constant.ChengfengConstant;
+import com.beautifulsoup.chengfeng.prop.RabbitmqProperties;
 
-import static com.beautifulsoup.chengfeng.constant.ChengfengConstant.RabbitMQ.*;
-
-@Slf4j
 @EnableConfigurationProperties(value = {RabbitmqProperties.class})
 public class RabbitmqConfig {
 

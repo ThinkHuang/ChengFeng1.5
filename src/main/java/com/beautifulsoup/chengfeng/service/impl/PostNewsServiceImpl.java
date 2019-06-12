@@ -1,5 +1,21 @@
 package com.beautifulsoup.chengfeng.service.impl;
 
+import java.io.Serializable;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeoutException;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+import org.springframework.validation.BindingResult;
+
 import com.beautifulsoup.chengfeng.constant.RedisConstant;
 import com.beautifulsoup.chengfeng.controller.vo.PostNewsDetailVo;
 import com.beautifulsoup.chengfeng.controller.vo.PostNewsVo;
@@ -17,37 +33,16 @@ import com.beautifulsoup.chengfeng.service.dto.PostNewsDto;
 import com.beautifulsoup.chengfeng.service.dto.PostReplyDto;
 import com.beautifulsoup.chengfeng.utils.AuthenticationInfoUtil;
 import com.beautifulsoup.chengfeng.utils.ParamValidatorUtil;
-import com.google.common.base.MoreObjects;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import lombok.extern.slf4j.Slf4j;
+
 import net.rubyeye.xmemcached.MemcachedClient;
 import net.rubyeye.xmemcached.exception.MemcachedException;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.Serializable;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.TimeoutException;
-import java.util.stream.Collectors;
-
-import static com.beautifulsoup.chengfeng.utils.FastDfsClientUtil.uploadFiles;
 
 /**
  * 贴吧模块基本使用redis解决
  */
-@Slf4j
 @Service
 public class PostNewsServiceImpl implements PostNewsService {
 

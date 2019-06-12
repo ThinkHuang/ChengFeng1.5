@@ -1,13 +1,47 @@
 package com.beautifulsoup.chengfeng.service.impl;
 
-import com.beautifulsoup.chengfeng.constant.ChengfengConstant;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeoutException;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.validation.BindingResult;
+
 import com.beautifulsoup.chengfeng.constant.RedisConstant;
-import com.beautifulsoup.chengfeng.controller.vo.*;
-import com.beautifulsoup.chengfeng.dao.*;
-import com.beautifulsoup.chengfeng.exception.BaseException;
+import com.beautifulsoup.chengfeng.controller.vo.CommunityNoticeVo;
+import com.beautifulsoup.chengfeng.controller.vo.PortalVo;
+import com.beautifulsoup.chengfeng.controller.vo.ProductSimpleVo;
+import com.beautifulsoup.chengfeng.controller.vo.ProperNoticeVo;
+import com.beautifulsoup.chengfeng.controller.vo.PurchaseInfoVo;
+import com.beautifulsoup.chengfeng.controller.vo.RepairBookVo;
+import com.beautifulsoup.chengfeng.controller.vo.SecretaryBookVo;
+import com.beautifulsoup.chengfeng.controller.vo.WaterBookVo;
+import com.beautifulsoup.chengfeng.controller.vo.WaterBrandVo;
+import com.beautifulsoup.chengfeng.dao.BannerImageMapper;
+import com.beautifulsoup.chengfeng.dao.CommunityNoticeMapper;
+import com.beautifulsoup.chengfeng.dao.ProperNoticeMapper;
+import com.beautifulsoup.chengfeng.dao.RepairBookMapper;
+import com.beautifulsoup.chengfeng.dao.SecretaryBookMapper;
+import com.beautifulsoup.chengfeng.dao.UserMapper;
+import com.beautifulsoup.chengfeng.dao.WaterBrandMapper;
+import com.beautifulsoup.chengfeng.dao.WatersuplyBookMapper;
+import com.beautifulsoup.chengfeng.dao.WatersuplyDetailsMapper;
 import com.beautifulsoup.chengfeng.exception.ParamException;
-import com.beautifulsoup.chengfeng.pojo.*;
-import com.beautifulsoup.chengfeng.repository.ProductRepository;
+import com.beautifulsoup.chengfeng.pojo.BannerImage;
+import com.beautifulsoup.chengfeng.pojo.CommunityNotice;
+import com.beautifulsoup.chengfeng.pojo.ProperNotice;
+import com.beautifulsoup.chengfeng.pojo.RepairBook;
+import com.beautifulsoup.chengfeng.pojo.SecretaryBook;
+import com.beautifulsoup.chengfeng.pojo.User;
+import com.beautifulsoup.chengfeng.pojo.WaterBrand;
+import com.beautifulsoup.chengfeng.pojo.WatersuplyBook;
+import com.beautifulsoup.chengfeng.pojo.WatersuplyDetails;
 import com.beautifulsoup.chengfeng.repository.PurchaseInfoRepository;
 import com.beautifulsoup.chengfeng.service.JournalismService;
 import com.beautifulsoup.chengfeng.service.PortalService;
@@ -22,24 +56,10 @@ import com.beautifulsoup.chengfeng.utils.JsonSerializableUtil;
 import com.beautifulsoup.chengfeng.utils.ParamValidatorUtil;
 import com.github.pagehelper.PageHelper;
 import com.google.common.collect.Lists;
+
 import lombok.extern.slf4j.Slf4j;
 import net.rubyeye.xmemcached.MemcachedClient;
 import net.rubyeye.xmemcached.exception.MemcachedException;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-import org.springframework.validation.BindingResult;
-
-import javax.validation.constraints.Size;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.TimeoutException;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service

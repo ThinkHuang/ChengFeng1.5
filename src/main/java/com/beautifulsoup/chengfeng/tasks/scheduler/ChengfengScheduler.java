@@ -1,13 +1,16 @@
 package com.beautifulsoup.chengfeng.tasks.scheduler;
 
+import org.quartz.JobBuilder;
+import org.quartz.JobDetail;
+import org.quartz.SimpleScheduleBuilder;
+import org.quartz.Trigger;
+import org.quartz.TriggerBuilder;
+import org.springframework.context.annotation.Bean;
+
 import com.beautifulsoup.chengfeng.annotation.NotUsed;
 import com.beautifulsoup.chengfeng.tasks.job.ChengfengJob;
-import org.quartz.*;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 @NotUsed
-//@Configuration
 public class ChengfengScheduler {
 
     @Bean

@@ -1,11 +1,12 @@
 package com.beautifulsoup.chengfeng.utils;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
+
 import com.beautifulsoup.chengfeng.common.ResponseResult;
 import com.beautifulsoup.chengfeng.controller.vo.TokenVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 public class TokenConferUtil {
     public static void conferToken(HttpServletResponse response,String token) throws IOException {

@@ -1,21 +1,20 @@
 package com.beautifulsoup.chengfeng.handler;
 
-import com.beautifulsoup.chengfeng.constant.ChengfengConstant;
-import com.beautifulsoup.chengfeng.constant.RedisConstant;
-import com.beautifulsoup.chengfeng.security.UserInfoService;
-import com.beautifulsoup.chengfeng.utils.TokenConferUtil;
-import net.rubyeye.xmemcached.MemcachedClient;
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import com.beautifulsoup.chengfeng.constant.RedisConstant;
+import com.beautifulsoup.chengfeng.security.UserInfoService;
+import com.beautifulsoup.chengfeng.utils.TokenConferUtil;
 
 public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
 

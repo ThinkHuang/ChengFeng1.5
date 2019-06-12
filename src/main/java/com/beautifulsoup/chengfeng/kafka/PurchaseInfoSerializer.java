@@ -1,14 +1,16 @@
 package com.beautifulsoup.chengfeng.kafka;
 
+import java.util.Map;
+
+import org.apache.kafka.common.serialization.Serializer;
+
 import com.beautifulsoup.chengfeng.service.dto.PurchaseInfoDto;
+
 import io.protostuff.LinkedBuffer;
 import io.protostuff.ProtostuffIOUtil;
 import io.protostuff.Schema;
 import io.protostuff.runtime.RuntimeSchema;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.common.serialization.Serializer;
-
-import java.util.Map;
 
 @Slf4j
 public class PurchaseInfoSerializer  implements Serializer<PurchaseInfoDto> {

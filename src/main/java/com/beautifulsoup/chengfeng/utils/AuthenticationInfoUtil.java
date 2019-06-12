@@ -1,14 +1,15 @@
 package com.beautifulsoup.chengfeng.utils;
 
-import com.beautifulsoup.chengfeng.dao.UserMapper;
-import net.rubyeye.xmemcached.MemcachedClient;
-import net.rubyeye.xmemcached.exception.MemcachedException;
+import java.util.concurrent.TimeoutException;
+
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 
-import java.util.concurrent.TimeoutException;
+import com.beautifulsoup.chengfeng.dao.UserMapper;
+
+import net.rubyeye.xmemcached.MemcachedClient;
+import net.rubyeye.xmemcached.exception.MemcachedException;
 
 public class AuthenticationInfoUtil {
 

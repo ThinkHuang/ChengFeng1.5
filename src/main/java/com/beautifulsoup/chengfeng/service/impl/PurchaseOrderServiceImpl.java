@@ -1,26 +1,15 @@
 package com.beautifulsoup.chengfeng.service.impl;
 
-import com.beautifulsoup.chengfeng.constant.ChengfengConstant;
-import com.beautifulsoup.chengfeng.constant.RedisConstant;
-import com.beautifulsoup.chengfeng.controller.vo.*;
-import com.beautifulsoup.chengfeng.dao.*;
-import com.beautifulsoup.chengfeng.enums.OrderStatus;
-import com.beautifulsoup.chengfeng.exception.ParamException;
-import com.beautifulsoup.chengfeng.pojo.*;
-import com.beautifulsoup.chengfeng.repository.ProductRepository;
-import com.beautifulsoup.chengfeng.service.PurchaseOrderService;
-import com.beautifulsoup.chengfeng.service.dto.PurchaseInfoDto;
-import com.beautifulsoup.chengfeng.utils.AssemblyDataUtil;
-import com.beautifulsoup.chengfeng.utils.AuthenticationInfoUtil;
-import com.beautifulsoup.chengfeng.utils.JsonSerializableUtil;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
-import lombok.extern.slf4j.Slf4j;
-import net.rubyeye.xmemcached.MemcachedClient;
-import net.rubyeye.xmemcached.exception.MemcachedException;
+import static com.beautifulsoup.chengfeng.constant.ChengfengConstant.RabbitMQ.UPDATE_ORDER_EXCHANGE;
 
-import org.apache.commons.lang3.RandomUtils;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
 import org.redisson.Redisson;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
@@ -33,13 +22,45 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-import java.util.stream.Collectors;
+import com.beautifulsoup.chengfeng.constant.ChengfengConstant;
+import com.beautifulsoup.chengfeng.constant.RedisConstant;
+import com.beautifulsoup.chengfeng.controller.vo.AssembleDetailVo;
+import com.beautifulsoup.chengfeng.controller.vo.AssembleSimpleVo;
+import com.beautifulsoup.chengfeng.controller.vo.PurchaseOrderItemVo;
+import com.beautifulsoup.chengfeng.controller.vo.PurchaseOrderVo;
+import com.beautifulsoup.chengfeng.controller.vo.ShippingVo;
+import com.beautifulsoup.chengfeng.dao.AssembleItemMapper;
+import com.beautifulsoup.chengfeng.dao.AssembleMapper;
+import com.beautifulsoup.chengfeng.dao.PurchaseCategoryMapper;
+import com.beautifulsoup.chengfeng.dao.PurchaseOrderItemMapper;
+import com.beautifulsoup.chengfeng.dao.PurchaseOrderMapper;
+import com.beautifulsoup.chengfeng.dao.PurchaseProductSkuMapper;
+import com.beautifulsoup.chengfeng.dao.PurchaseShippingMapper;
+import com.beautifulsoup.chengfeng.dao.UserMapper;
+import com.beautifulsoup.chengfeng.enums.OrderStatus;
+import com.beautifulsoup.chengfeng.exception.ParamException;
+import com.beautifulsoup.chengfeng.pojo.Assemble;
+import com.beautifulsoup.chengfeng.pojo.AssembleItem;
+import com.beautifulsoup.chengfeng.pojo.PurchaseCategory;
+import com.beautifulsoup.chengfeng.pojo.PurchaseOrder;
+import com.beautifulsoup.chengfeng.pojo.PurchaseOrderItem;
+import com.beautifulsoup.chengfeng.pojo.PurchaseProduct;
+import com.beautifulsoup.chengfeng.pojo.PurchaseProductSku;
+import com.beautifulsoup.chengfeng.pojo.PurchaseShipping;
+import com.beautifulsoup.chengfeng.pojo.User;
+import com.beautifulsoup.chengfeng.repository.ProductRepository;
+import com.beautifulsoup.chengfeng.service.PurchaseOrderService;
+import com.beautifulsoup.chengfeng.service.dto.PurchaseInfoDto;
+import com.beautifulsoup.chengfeng.utils.AssemblyDataUtil;
+import com.beautifulsoup.chengfeng.utils.AuthenticationInfoUtil;
+import com.beautifulsoup.chengfeng.utils.JsonSerializableUtil;
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 
-import static com.beautifulsoup.chengfeng.constant.ChengfengConstant.RabbitMQ.UPDATE_ORDER_EXCHANGE;
+import lombok.extern.slf4j.Slf4j;
+import net.rubyeye.xmemcached.MemcachedClient;
+import net.rubyeye.xmemcached.exception.MemcachedException;
 
 @Slf4j
 @Service

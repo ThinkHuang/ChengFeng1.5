@@ -1,17 +1,11 @@
 package com.beautifulsoup.chengfeng.service.impl;
 
-import com.beautifulsoup.chengfeng.dao.UserMapper;
-import com.beautifulsoup.chengfeng.pojo.Journalism;
-import com.beautifulsoup.chengfeng.repository.JournalismRepository;
-import com.beautifulsoup.chengfeng.service.JournalismService;
-import com.beautifulsoup.chengfeng.utils.AuthenticationInfoUtil;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-import net.rubyeye.xmemcached.MemcachedClient;
-import net.rubyeye.xmemcached.exception.MemcachedException;
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.TimeoutException;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -19,10 +13,16 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.TimeoutException;
-import java.util.stream.Collectors;
+import com.beautifulsoup.chengfeng.dao.UserMapper;
+import com.beautifulsoup.chengfeng.pojo.Journalism;
+import com.beautifulsoup.chengfeng.repository.JournalismRepository;
+import com.beautifulsoup.chengfeng.service.JournalismService;
+import com.beautifulsoup.chengfeng.utils.AuthenticationInfoUtil;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
+
+import net.rubyeye.xmemcached.MemcachedClient;
+import net.rubyeye.xmemcached.exception.MemcachedException;
 
 @Service
 public class JournalismServiceImpl implements JournalismService {

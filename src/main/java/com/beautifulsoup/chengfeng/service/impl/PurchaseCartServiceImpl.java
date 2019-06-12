@@ -1,10 +1,21 @@
 package com.beautifulsoup.chengfeng.service.impl;
 
-import com.beautifulsoup.chengfeng.constant.ChengfengConstant;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.TimeoutException;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
 import com.beautifulsoup.chengfeng.constant.RedisConstant;
 import com.beautifulsoup.chengfeng.controller.vo.PurchaseCartVo;
 import com.beautifulsoup.chengfeng.dao.PurchaseCategoryMapper;
-import com.beautifulsoup.chengfeng.dao.PurchaseProductMapper;
 import com.beautifulsoup.chengfeng.dao.PurchaseProductSkuMapper;
 import com.beautifulsoup.chengfeng.dao.UserMapper;
 import com.beautifulsoup.chengfeng.exception.ParamException;
@@ -20,23 +31,9 @@ import com.beautifulsoup.chengfeng.utils.AssemblyDataUtil;
 import com.beautifulsoup.chengfeng.utils.AuthenticationInfoUtil;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
+
 import net.rubyeye.xmemcached.MemcachedClient;
 import net.rubyeye.xmemcached.exception.MemcachedException;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.TimeoutException;
-
-import static com.beautifulsoup.chengfeng.constant.ChengfengConstant.RabbitMQ.MESSAGE_STOCK_UPDATE;
 
 @Service
 public class PurchaseCartServiceImpl implements PurchaseCartService {

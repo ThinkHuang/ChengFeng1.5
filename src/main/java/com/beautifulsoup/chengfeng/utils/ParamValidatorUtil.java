@@ -1,12 +1,10 @@
 package com.beautifulsoup.chengfeng.utils;
 
-import com.beautifulsoup.chengfeng.exception.ParamException;
-import com.google.common.collect.Lists;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 
-import java.util.List;
+import com.beautifulsoup.chengfeng.exception.ParamException;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ParamValidatorUtil {

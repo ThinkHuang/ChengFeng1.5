@@ -1,14 +1,5 @@
 package com.beautifulsoup.chengfeng.config;
 
-import com.beautifulsoup.chengfeng.handler.UserLoginSuccessHandler;
-import com.beautifulsoup.chengfeng.handler.TokenRefreshSuccessHandler;
-import com.beautifulsoup.chengfeng.handler.TokenClearLogoutHandler;
-import com.beautifulsoup.chengfeng.security.ChengfengAccessDeniedHandler;
-import com.beautifulsoup.chengfeng.security.UserInfoService;
-import com.beautifulsoup.chengfeng.security.configurer.UserLoginConfigurer;
-import com.beautifulsoup.chengfeng.security.configurer.TokenLoginConfigurer;
-import com.beautifulsoup.chengfeng.security.provider.TokenAuthenticationProvider;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -21,18 +12,16 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
-import org.springframework.security.web.header.Header;
-import org.springframework.security.web.header.writers.StaticHeadersWriter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.CorsUtils;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import java.util.Arrays;
+import com.beautifulsoup.chengfeng.handler.TokenClearLogoutHandler;
+import com.beautifulsoup.chengfeng.handler.TokenRefreshSuccessHandler;
+import com.beautifulsoup.chengfeng.handler.UserLoginSuccessHandler;
+import com.beautifulsoup.chengfeng.security.ChengfengAccessDeniedHandler;
+import com.beautifulsoup.chengfeng.security.UserInfoService;
+import com.beautifulsoup.chengfeng.security.configurer.TokenLoginConfigurer;
+import com.beautifulsoup.chengfeng.security.configurer.UserLoginConfigurer;
+import com.beautifulsoup.chengfeng.security.provider.TokenAuthenticationProvider;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {

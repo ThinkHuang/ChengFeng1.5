@@ -1,26 +1,22 @@
 package com.beautifulsoup.chengfeng.initialize;
 
-import com.beautifulsoup.chengfeng.constant.RedisConstant;
-import com.beautifulsoup.chengfeng.dao.PurchaseProductMapper;
-import com.beautifulsoup.chengfeng.dao.UserMapper;
-import com.beautifulsoup.chengfeng.pojo.PurchaseEvaluation;
-import com.beautifulsoup.chengfeng.pojo.PurchaseProduct;
-import com.beautifulsoup.chengfeng.pojo.PurchaseProductSku;
-import com.beautifulsoup.chengfeng.pojo.User;
-import com.beautifulsoup.chengfeng.service.dto.PurchaseInfoDto;
-import com.beautifulsoup.chengfeng.utils.JsonSerializableUtil;
-import com.google.common.collect.Multimap;
+import java.io.Serializable;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.beautifulsoup.chengfeng.constant.RedisConstant;
+import com.beautifulsoup.chengfeng.dao.PurchaseProductMapper;
+import com.beautifulsoup.chengfeng.dao.UserMapper;
+import com.beautifulsoup.chengfeng.pojo.PurchaseProduct;
+import com.beautifulsoup.chengfeng.pojo.PurchaseProductSku;
+import com.beautifulsoup.chengfeng.pojo.User;
+import com.beautifulsoup.chengfeng.utils.JsonSerializableUtil;
 
 @Component
 public class ChengfengInit implements InitializingBean {

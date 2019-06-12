@@ -1,69 +1,82 @@
 package com.beautifulsoup.chengfeng.controller;
 
-import com.beautifulsoup.chengfeng.common.ResponseResult;
-import com.beautifulsoup.chengfeng.constant.ChengfengConstant;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartException;
-import org.springframework.web.multipart.MultipartFile;
+import static com.beautifulsoup.chengfeng.utils.FastDfsClientUtil.saveFile;
 
 import java.io.IOException;
 
-import static com.beautifulsoup.chengfeng.utils.FastDfsClientUtil.saveFile;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartException;
+import org.springframework.web.multipart.MultipartFile;
 
-@Api(value="文件上传",tags= {"文件上传Controller"},description = "文件上传",protocols = "http")
-@Controller
+import com.beautifulsoup.chengfeng.common.ResponseResult;
+import com.beautifulsoup.chengfeng.constant.ChengfengConstant;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(value = "文件上传", tags = {"文件上传Controller"}, description = "文件上传", protocols = "http")
+@RestController
 @RequestMapping("/file")
-@Slf4j
-public class FileUploadController {
-
+public class FileUploadController
+{
+    
     @GetMapping("/")
-    public String getUploadHtml(){
+    public String getUploadHtml()
+    {
         return "upload";
     }
-
-    @ApiOperation(value = "文件上传",notes = "上传文件",produces = "multipart/form-data",
-            response = ResponseResult.class,httpMethod = "POST")
+    
+    @ApiOperation(value = "文件上传", notes = "上传文件", produces = "multipart/form-data", response = ResponseResult.class, httpMethod = "POST")
     @PostMapping("/upload")
-    @ResponseBody
-    public ResponseResult uploadFile(@RequestParam("file") MultipartFile file){
-        if(file.isEmpty()){
+    public ResponseResult uploadFile(@RequestParam("file") MultipartFile file)
+    {
+        if (file.isEmpty())
+        {
             throw new MultipartException(ChengfengConstant.File.UPLOAD_EMPTY_ERROR);
         }
-        try {
+        try
+        {
             String path = saveFile(file);
-            return ResponseResult.createBySuccess("图片上传成功",path);
-        } catch (IOException e) {
+            return ResponseResult.createBySuccess("图片上传成功", path);
+        }
+        catch (IOException e)
+        {
             throw new MultipartException(ChengfengConstant.File.UPLOAD_FAILURE);
         }
     }
-
-    @ApiOperation(value = "文件上传",notes = "批量上传文件",produces = "multipart/form-data",
-            response = ResponseResult.class,httpMethod = "POST")
+    
+    @ApiOperation(value = "文件上传", notes = "批量上传文件", produces = "multipart/form-data", response = ResponseResult.class, httpMethod = "POST")
     @PostMapping("/uploads")
-    @ResponseBody
-    public ResponseResult uploadFiles(@RequestParam("files") MultipartFile[] files){
-        if(files==null||files.length<1){
+    public ResponseResult uploadFiles(@RequestParam("files") MultipartFile[] files)
+    {
+        if (files == null || files.length < 1)
+        {
             throw new MultipartException(ChengfengConstant.File.UPLOAD_EMPTY_ERROR);
         }
-        try {
-            StringBuffer stringBuffer=new StringBuffer();
-            for (int i=0;i<files.length;i++){
-                if (i!=files.length-1){
+        try
+        {
+            StringBuilder stringBuffer = new StringBuilder();
+            for (int i = 0; i < files.length; i++)
+            {
+                if (i != files.length - 1)
+                {
                     stringBuffer.append(saveFile(files[i])).append(",");
-                }else{
+                }
+                else
+                {
                     stringBuffer.append(saveFile(files[i]));
                 }
             }
-            return ResponseResult.createBySuccess("图片上传成功",stringBuffer.toString());
-        } catch (IOException e) {
+            return ResponseResult.createBySuccess("图片上传成功", stringBuffer.toString());
+        }
+        catch (IOException e)
+        {
             throw new MultipartException(ChengfengConstant.File.UPLOAD_FAILURE);
         }
     }
-
-
-
+    
 }

@@ -1,18 +1,19 @@
 package com.beautifulsoup.chengfeng.handler;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.beautifulsoup.chengfeng.common.ResponseResult;
-import com.beautifulsoup.chengfeng.security.UserInfoService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
-import java.io.IOException;
+import com.beautifulsoup.chengfeng.common.ResponseResult;
+import com.beautifulsoup.chengfeng.security.UserInfoService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 public class TokenClearLogoutHandler implements LogoutHandler {

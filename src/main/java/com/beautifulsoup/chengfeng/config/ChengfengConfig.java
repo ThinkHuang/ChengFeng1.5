@@ -10,20 +10,22 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @EnableCaching
-@Import(value = {SwaggerConfig.class,RabbitmqConfig.class,MemcachedConfig.class, RedisConfig.class,SecurityConfig.class,CorsConfig.class,KafkaConfig.class})
-public class ChengfengConfig {
-
-
+@Import(value = {SwaggerConfig.class, RabbitmqConfig.class, MemcachedConfig.class, RedisConfig.class, SecurityConfig.class, CorsConfig.class, KafkaConfig.class})
+public class ChengfengConfig
+{
+    
     @Bean
-    public TomcatServletWebServerFactory tomcatEmbedded() {
+    public TomcatServletWebServerFactory tomcatEmbedded()
+    {
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
-        tomcat.addConnectorCustomizers((TomcatConnectorCustomizer) connector -> {
-            if ((connector.getProtocolHandler() instanceof AbstractHttp11Protocol<?>)) {
-                //-1 means unlimited
-                ((AbstractHttp11Protocol<?>) connector.getProtocolHandler()).setMaxSwallowSize(-1);
+        tomcat.addConnectorCustomizers((TomcatConnectorCustomizer)connector -> {
+            if ((connector.getProtocolHandler() instanceof AbstractHttp11Protocol<?>))
+            {
+                // -1 means unlimited
+                ((AbstractHttp11Protocol<?>)connector.getProtocolHandler()).setMaxSwallowSize(-1);
             }
         });
         return tomcat;
     }
-
+    
 }

@@ -1,11 +1,11 @@
 package com.beautifulsoup.chengfeng.utils;
 
+import org.springframework.data.redis.core.StringRedisTemplate;
+
 import com.beautifulsoup.chengfeng.constant.RedisConstant;
 import com.beautifulsoup.chengfeng.pojo.PurchaseCategory;
 import com.beautifulsoup.chengfeng.pojo.PurchaseProductSku;
 import com.beautifulsoup.chengfeng.service.dto.PurchaseInfoDto;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 
 public class AssemblyDataUtil {
     public static PurchaseInfoDto assemblyPurchaseInfo(PurchaseProductSku productSku,Integer count,PurchaseCategory category,StringRedisTemplate stringRedisTemplate){

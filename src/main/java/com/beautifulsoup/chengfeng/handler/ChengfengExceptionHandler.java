@@ -1,5 +1,16 @@
 package com.beautifulsoup.chengfeng.handler;
 
+import java.util.Map;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MultipartException;
+
 import com.beautifulsoup.chengfeng.common.ResponseResult;
 import com.beautifulsoup.chengfeng.enums.ResponseCode;
 import com.beautifulsoup.chengfeng.exception.BaseException;
@@ -7,17 +18,6 @@ import com.beautifulsoup.chengfeng.exception.ParamException;
 import com.beautifulsoup.chengfeng.exception.TokenException;
 import com.beautifulsoup.chengfeng.exception.UserAuthenticationException;
 import com.google.common.collect.Maps;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.multipart.MultipartException;
-
-import java.util.Map;
 
 @ControllerAdvice(basePackages = {"com.beautifulsoup.chengfeng"})
 public class ChengfengExceptionHandler {
