@@ -9,16 +9,16 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.beautifulsoup</groupId>
-    <artifactId>chengfeng</artifactId>
+    <artifactId>huang</artifactId>
     <version>1.5.0</version>
-    <name>chengfeng</name>
+    <name>huang</name>
     <description>Chengfeng project for Spring Boot</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <docker.image.prefix>chengfeng</docker.image.prefix>
+        <docker.image.prefix>huang</docker.image.prefix>
         <elasticsearch.version>6.1.3</elasticsearch.version>
     </properties>
 
